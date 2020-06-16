@@ -196,7 +196,12 @@ class Movies(KodiDb):
 
             temp_obj = dict(obj, RatingType="tomatometerallcritics", Rating=float(obj['CriticRating']/10.0))
             temp_obj['RatingId'] = self.get_rating_id(*values(temp_obj, QU.get_rating_movie_obj))
-            self.update_ratings(*values(temp_obj, QU.update_rating_movie_obj))
+            
+            if temp_obj['RatingId'] = self.create_entry_rating():
+                
+                self.add_ratings(*values(dict(obj, RatingId=self.create_entry_rating(), RatingType="tomatometerallcritics", Rating=float(obj['CriticRating']/10.0)), QU.add_rating_movie_obj))
+            else:
+                self.update_ratings(*values(temp_obj, QU.update_rating_movie_obj))
 
         self.remove_unique_ids(*values(obj, QU.delete_unique_ids_movie_obj))
         
